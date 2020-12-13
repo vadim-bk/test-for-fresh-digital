@@ -1,9 +1,10 @@
 import { fork, all } from 'redux-saga/effects'
-import { clientWatchers } from '../components/Client/actions';
+
+import { orderWatchers } from '../components/Order/actions';
 
 
 const sagas = [
-  clientWatchers,
+  orderWatchers,
 ];
 
 export default function* rootSaga() {
