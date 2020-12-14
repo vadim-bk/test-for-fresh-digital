@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Button } from '@material-ui/core';
 
 import { getClientsList } from '../selectors';
+import { debounce } from '../../../services/helpers';
 import { getApplicantsSaga, getClientsSaga, getFilteredClientsSaga, setClientId } from '../actions';
 
 const Client = ({ handleSubmit }) => {
@@ -40,22 +41,27 @@ const Client = ({ handleSubmit }) => {
 
         <Autocomplete
           id="combo-box-demo"
+          className="field"
           options={clients}
           getOptionLabel={(option) => option.label}
           style={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Customer Search / Selection" />}
-          onInputChange={handleChangeInput}
+          onInputChange={debounce(handleChangeInput)}
         />
 
-        <div className="client-info">
-          <p><b>{clientInfo?.name}</b></p>
-          <p>{clientInfo?.address?.address}</p>
-          <p>Телефон: {clientInfo?.phone}</p>
-        </div>
+        {clientInfo && (
+          <>
+            <div className="client-info">
+              <p><b>{clientInfo?.name}</b></p>
+              <p>{clientInfo?.address?.address}</p>
+              <p>Телефон: {clientInfo?.phone}</p>
+            </div>
 
-        <Button className='btn btn-long' variant="contained" color="primary" onClick={handleSubmit}>
-          SUBMIT AN APPLICATION
-        </Button>
+            <Button className='btn-long' variant="contained" color="primary" onClick={handleSubmit}>
+              SUBMIT AN APPLICATION
+            </Button>
+          </>
+        )}
 
       </div>
     </section>

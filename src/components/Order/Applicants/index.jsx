@@ -106,7 +106,7 @@ const Applicants = ({ handleSubmit }) => {
           </div>
 
           <Button
-            className="btn btn-short"
+            className="btn-short"
             variant="outlined"
             color="primary"
             onClick={handleToggleAdd}
@@ -216,14 +216,14 @@ const Applicants = ({ handleSubmit }) => {
                 </div>
               </div>
 
-              <Button className="btn btn-short" variant="outlined" color="primary" onClick={handleCreateApplicant}>
+              <Button className="btn-short" variant="outlined" color="primary" onClick={handleCreateApplicant}>
                 Додати
               </Button>
             </div>
           )}
         </div>
 
-        <Button className="btn btn-long" variant="contained" color="primary" onClick={handleSubmit}>
+        <Button className="btn-long" variant="contained" color="primary" onClick={handleSubmit}>
           SUBMIT AN APPLICATION
         </Button>
       </div>

@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-  padding: 0 20px;
+  padding: 20px;
 }
 
 .column {
@@ -45,15 +45,13 @@ body {
   width: 100%;
 }
 
-.btn {
-  margin: 15px 0 !important;
-}
-
 .btn-short {
+  margin: 15px 0 !important;
   width: 110px;
 }
 
 .btn-long {
+  margin-top: 15px 0 !important;
   width: 230px;
 }
 
@@ -70,4 +68,15 @@ body {
   position: absolute;
   top: 30%;
   cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .double-input {
+    display: block;
+  }
+
+  .col {
+    width: 100%;
+  }
 }
