@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Button } from '@material-ui/core';
 
-import { getFilteredClients } from '../selectors';
-import { getApplicantsSaga, getFilteredClientsSaga, setClientId } from '../actions';
+import { getClientsList } from '../selectors';
+import { getApplicantsSaga, getClientsSaga, getFilteredClientsSaga, setClientId } from '../actions';
 
 const Client = ({ handleSubmit }) => {
   const [clientInfo, setClientInfo] = useState(null)
 
   const dispatch = useDispatch()
+  const clients = useSelector(getClientsList)
 
-  const filteredClients = useSelector(getFilteredClients)
+  useEffect(() => {
+    dispatch(getClientsSaga())
+  }, [])
 
   const handleChangeInput = (e, value) => {
     if (e.type === 'click') {
-      const selectedClient = filteredClients.find(el => el.name === value)
+      const selectedClient = clients.find(el => el.name === value)
       if (selectedClient) {
         setClientInfo(selectedClient)
         dispatch(setClientId(selectedClient.id))
@@ -37,8 +40,8 @@ const Client = ({ handleSubmit }) => {
 
         <Autocomplete
           id="combo-box-demo"
-          options={filteredClients}
-          getOptionLabel={(option) => option.name}
+          options={clients}
+          getOptionLabel={(option) => option.label}
           style={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Customer Search / Selection" />}
           onInputChange={handleChangeInput}

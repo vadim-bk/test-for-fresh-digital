@@ -3,6 +3,9 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import api from "../../services/api";
 import types from "../../redux/types";
 
+export const getClientsSaga = () => ({type: types.GET_CLIENTS_SAGA});
+export const setClients = (payload) => ({type: types.SET_CLIENTS, payload});
+
 export const getFilteredClientsSaga = (payload) => ({type: types.GET_FILTERED_CLIENTS_SAGA, payload});
 export const setFilteredClients = (payload) => ({type: types.SET_FILTERED_CLIENTS, payload});
 
@@ -14,6 +17,17 @@ export const setApplicantsIds = (payload) => ({type: types.SET_APPLICANTS_IDS, p
 export const setNewApplicants = (payload) => ({type: types.SET_NEW_APPLICANTS, payload});
 
 export const clearOrderState = () => ({type: types.CLEAR_ORDER_STATE});
+
+function* sagaOnGetClients() {
+  try {
+    const {status, data} = yield call(api.getClients)
+    if (status >= 200 && status < 300) {
+      yield put(setClients(data.items))
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 function* sagaOnGetFilteredClients({payload}) {
   try {
@@ -39,6 +53,7 @@ function* sagaOnGetApplicants({payload}) {
 }
 
 export function* orderWatchers() {
+  yield takeEvery(types.GET_CLIENTS_SAGA, sagaOnGetClients);
   yield takeEvery(types.GET_FILTERED_CLIENTS_SAGA, sagaOnGetFilteredClients);
   yield takeEvery(types.GET_APPLICANTS_SAGA, sagaOnGetApplicants);
 }

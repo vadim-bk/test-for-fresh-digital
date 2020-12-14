@@ -1,7 +1,7 @@
 import types from '../../redux/types';
 
 const initialState = {
-  filteredClients: [],
+  clients: [],
   applicants: [],
   clienId: '',
   applicantsIds: [],
@@ -10,8 +10,11 @@ const initialState = {
 
 export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_CLIENTS:
+      return { ...state, clients: action.payload }
+
     case types.SET_FILTERED_CLIENTS:
-      return { ...state, filteredClients: action.payload };
+      return { ...state, clients: action.payload };
 
     case types.SET_APPLICANTS:
       return { ...state, applicants: action.payload };
