@@ -20,7 +20,7 @@ const Client = ({ handleSubmit }) => {
 
   const handleChangeInput = (e, value) => {
     if (e.type === 'click') {
-      const selectedClient = clients.find(el => el.name === value)
+      const selectedClient = clients.find(el => el.label === value)
       if (selectedClient) {
         setClientInfo(selectedClient)
         dispatch(setClientId(selectedClient.id))
